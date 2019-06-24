@@ -8,7 +8,7 @@ RUN apt-get update && apt-get install -y \
 ENV ROUNDCUBE_URL https://github.com/roundcube/roundcubemail/releases/download/1.3.9/roundcubemail-1.3.9-complete.tar.gz
 
 RUN apt-get update && apt-get install -y \
-      zlib1g-dev python3-jinja2 \
+      zlib1g-dev python3-jinja2 libzip-dev\
  && docker-php-ext-install zip \
  && echo date.timezone=UTC > /usr/local/etc/php/conf.d/timezone.ini \
  && rm -rf /var/www/html/ \
@@ -23,7 +23,7 @@ RUN apt-get update && apt-get install -y \
  && chown -R www-data: logs temp \
  && rm -rf /var/lib/apt/lists
 
- RUN pip3 install git+https://github.com/usrpro/MailuStart.git#egg=mailustart
+RUN pip3 install git+https://github.com/usrpro/MailuStart.git#egg=mailustart
 
 COPY php.ini /php.ini
 COPY config.inc.php /var/www/html/config/
